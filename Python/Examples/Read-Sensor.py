@@ -17,6 +17,6 @@ bmg160 = bmg160.BMG160(bus, kwargs)
 while True :
     #print out the readings.
     #the readings will be return in a set keyed X, Y, and Z for the corresponding values
-    print bmg160.take_reading()
+    print bmg160.get_readings()
     #this sleep is not required
     time.sleep(.25)
