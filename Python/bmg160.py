@@ -45,21 +45,20 @@ class BMG160():
         if not hasattr(self, 'bandwidth'):
             self.bandwidth = BMG160_BW_23
         self.smbus = smbus
-        
+
         self.smbus.write_byte_data(self.address, BMG160_RANGE_REGISTER, self.range)
         self.smbus.write_byte_data(self.address, BMG160_BW_REGISTER, self.bandwidth)
-    
-    def take_reading(self):
+
+    def get_readings(self):
         data = self.smbus.read_i2c_block_data(self.address, BMG160_RATE_X_LSB, 6)
         gyroX = data[0] + (data[1] << 8)
         gyroY = data[2] + (data[3] << 8)
         gyroZ = data[4] + (data[5] << 8)
-        
+
         if gyroX > 32767:
             gyroX -= 65536
         if gyroY > 32767:
-            gyroY -= 65536 
+            gyroY -= 65536
         if gyroZ > 32767:
-            gyroZ -= 65536 
+            gyroZ -= 65536
         return {'X': gyroX, 'Y': gyroY, 'Z': gyroY}
-
